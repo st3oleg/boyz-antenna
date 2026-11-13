@@ -1,0 +1,17 @@
+[Unit]
+Description=Terminator RTK Base Station TCP Server
+After=network.target tailscaled.service
+Wants=tailscaled.service
+
+[Service]
+Type=simple
+User=antenna
+WorkingDirectory=/home/antenna/Documents
+ExecStart=/usr/bin/python3 /home/antenna/Documents/base_manager.py
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
