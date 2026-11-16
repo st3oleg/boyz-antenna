@@ -1,0 +1,21 @@
+[Unit]
+Description=Terminator RTK Base RTCM and State Server
+Wants=network-online.target
+After=network-online.target tailscaled.service
+StartLimitIntervalSec=60
+StartLimitBurst=6
+
+[Service]
+Type=simple
+User=antenna
+SupplementaryGroups=dialout
+WorkingDirectory=/home/antenna/Documents
+EnvironmentFile=-/etc/terminator/base.env
+ExecStart=/usr/bin/python3 -u /home/antenna/Documents/base_manager.py
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
